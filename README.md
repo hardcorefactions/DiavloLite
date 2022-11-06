@@ -17,5 +17,4 @@ N/A, I'm currently working hard on it. Updates will be added to the repo but I d
 
 ## Screenshots
 
-![Login](https://github.com/Compromissed/cdn/blob/main/image.png?raw=true)
 ![Main](https://github.com/Compromissed/cdn/blob/main/main.png?raw=true)
