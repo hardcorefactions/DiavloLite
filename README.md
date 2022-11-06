@@ -9,6 +9,12 @@ Diavlo remade for free. Open source with no databases, you add those btw. Credit
 
 Diavlo Discord: [Click here](https://discord.gg/diavlo)
 
+## Todo
+
+[ ] Settings client-side.
+[ ] Administration using a secret on main.py.
+[ ] Try to get less detects on vt.
+
 ## How does this work?
 I will be creating a tool similar to Diavlo but you will need to add your own databases (if not dumped in JSON format from phpMyAdmin contact me. My discord is on my main page.)
 
