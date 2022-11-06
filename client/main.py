@@ -4,8 +4,7 @@ from websockets import connect
 from pwinput import pwinput
 colorama.init()
 
-#ws = "ws://%WEBSOCKET HERE%"
-ws = "ws://localhost:8001"
+ws = "ws://%WEBSOCKET HERE%"
 logo = """
   _____  _             _         _      _ _       
  |  __ \(_)           | |       | |    (_) |      
@@ -26,7 +25,7 @@ logo2 = """
 
 
 # WS REQUESTS
-# Example ws request -> asyncio.run(login("ws://localhost:8001"))
+# Example ws request -> asyncio.run(login("ws://%WEBSOCKET HERE%"))
 
 async def ws_login(uri, user, passwd):
     async with connect(uri) as ws:
