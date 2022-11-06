@@ -1,5 +1,5 @@
 
-# Diavlo Lite ![](https://geps.dev/progress/10)
+# Diavlo Lite ![](https://geps.dev/progress/30)
 
 Diavlo remade for free. Open source with no databases, you add those btw. Credits to the owners of Diavlo. I don't own Diavlo
 
