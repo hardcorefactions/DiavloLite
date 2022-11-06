@@ -14,6 +14,7 @@ Diavlo Discord: [Click here](https://discord.gg/diavlo)
 - [ ] Settings client-side.
 - [ ] Administration using a secret on main.py.
 - [ ] Try to get less detects on vt.
+- [ ] Add DBA ([Spigot Resource](https://www.spigotmc.org/resources/dynamicbungeeauth-premium-command-semi-premium-system-sessions.27480/)) bruteforce.
 
 ## How does this work?
 I will be creating a tool similar to Diavlo but you will need to add your own databases (if not dumped in JSON format from phpMyAdmin contact me. My discord is on my main page.)
