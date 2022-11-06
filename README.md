@@ -14,3 +14,8 @@ I will be creating a tool similar to Diavlo but you will need to add your own da
 
 ## When will I be able to use this?
 N/A, I'm currently working hard on it. Updates will be added to the repo but I don't recommend downloading right now due to not being 100% ready.
+
+## Screenshots
+
+![Login](https://github.com/Compromissed/cdn/blob/main/image.png?raw=true)
+![Main](https://github.com/Compromissed/cdn/blob/main/main.png?raw=true)
