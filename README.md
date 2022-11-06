@@ -23,4 +23,12 @@ N/A, I'm currently working hard on it. Updates will be added to the repo but I d
 
 ## Screenshots
 
+### Administration
+![Main](https://i.imgur.com/QKvqyPt.png)
+
+### Server-side
+![WS Logs](https://i.imgur.com/oflAcWx.png)
+
+### Client-side
+![Login](https://i.imgur.com/iGzB9tr.png)
 ![Main](https://github.com/Compromissed/cdn/blob/main/main.png?raw=true)
