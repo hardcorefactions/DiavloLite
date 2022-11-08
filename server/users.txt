@@ -1,1 +1,1 @@
-Compromissed;admin;ADMIN
+Compromissed;admin;ADMIN-extended

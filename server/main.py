@@ -52,13 +52,28 @@ TIMELEFT 27"""
                                             if (line == "[" or line == "]"):
                                                 pass
                                             else:
-                                                tmp = json.loads(line)
-                                                if tmp['user'].lower() == message[3].lower():
-                                                    datasend+=file.replace('.json', '')+" "+line+"&&&"
+                                                tmp = json.loads(line.replace("'", '"'))
+                                                if tmp['name'].lower() == message[3].lower():
+                                                    with open('srvdict.txt', 'r') as f:
+                                                        lines = f.readlines()
+                                                        for line2 in lines:
+                                                            line2 = line2.split(":")
+                                                            if line2[0] == tmp['password']:
+                                                                line = str(line).replace(tmp['password'], line2[1])
+                                                    datasend+=file.replace('.json', '')+" "+ line +"&&&"
                                                     ok = True
                             if not ok:
                                 await ws.send("NOTHING")
                             await ws.send(datasend)
+        if cmd == "addpass":
+            with open('users.txt', 'r') as f:
+                    lines = f.readlines()
+                    ok = False
+                    for line in lines:
+                        line = line.replace('\n', '').split(';')
+                        if (line[0].lower() == message[1].lower() and line[1] == message[2]):
+                            with open('srvdict.txt', 'a') as f:
+                                f.write(message[3]+":"+message[4]+"\n")
 
 async def main():
     async with websockets.serve(handler, "", 8001):

