@@ -4,3 +4,5 @@ server/srvdict.txt
 main.exe
 server/srvdict.txt
 devresource/gmip-notparsed.txt
+devresource/gmip-parsed.json
+devresource/parse.py
