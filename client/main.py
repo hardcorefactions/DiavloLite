@@ -4,7 +4,7 @@ from websockets import connect
 from pwinput import pwinput
 colorama.init()
 
-ws = "ws://%WEBSOCKET HERE%"
+ws = "ws://127.0.0.1:8001"
 logo = """
   _____  _             _         _      _ _       
  |  __ \(_)           | |       | |    (_) |      
@@ -60,15 +60,17 @@ def centertext(s):
 
 def bruteforce(hash, salt):
     if len(hash) == 86: # SHA256 - AuthMe
-        salt = hash.split("$")[2]
-        hash = hash.split("$")[3]
+        salt1 = hash.split("$")[2]
+        hash1 = hash.split("$")[3]
         for word in words:
             nosalt = hashlib.sha256(word.encode()).hexdigest()
-            withsalt = hashlib.sha256(nosalt.encode() + salt.encode()).hexdigest()
-            if withsalt == hash:
+            withsalt = hashlib.sha256(nosalt.encode() + salt1.encode()).hexdigest()
+            if withsalt == hash1:
                 return word
     if len(hash) == 128: # SHA512 - DBA
-        return
+        for word in words:
+            var2 = hashlib.sha512(word.encode()).hexdigest()
+            final = hashlib.sha512((var2 + uuid).encode()).hexdigest()
     return hash
 
 def antidebug():
@@ -120,11 +122,12 @@ def d_mc():
 ║ Loading wordlist... Please wait.  ║
 ║                                   ║
 ╚═══════════════════════════════════╝""")
-        with open(wordlist, 'r', encoding="latin-1") as f:
-            lines = f.readlines()
-            for line in lines:
-                line = line.replace('\n', '')
-                words.append(line)
+        #with open(wordlist, 'r', encoding="latin-1") as f:
+        #    lines = f.readlines()
+        #    for line in lines:
+        #        line = line.replace('\n', '')
+        #        words.append(line)
+        words.append("DEBUG")
         print(Fore.GREEN, end="")
         printcenter("Wordlist loaded sucessfully! Searching data from this user...")
         dbdata = asyncio.run(ws_mcsearch(ws, user, pwd, nick))
@@ -144,8 +147,12 @@ def d_mc():
                     printcenter(f"Found {nick}@{server}. Cracking...")
                     print(Fore.GREEN)
                     hash = json.loads(line.replace(server+" ", ""))['password']
-                    realpass = bruteforce(hash.replace('\n', ''), "Salt with hash")
-                    if not (realpass == hash.replace('\n', '')):
+                    salt = json.loads(line.replace(server+ "", ""))['salt']
+                    if salt:
+                        realpass = bruteforce(hash.replace('\n', ''), )
+                    else:
+                        realpass = bruteforce(hash.replace('\n', ''), "Salt with hash")
+                    if realpass != hash.replace('\n', ''):
                         printcenter("» Server: "+server)
                         printcenter("» Username: "+nick)
                         printcenter("» Password: "+realpass)
