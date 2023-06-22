@@ -72,8 +72,15 @@ TIMELEFT 27"""
                     for line in lines:
                         line = line.replace('\n', '').split(';')
                         if (line[0].lower() == message[1].lower() and line[1] == message[2]):
-                            with open('srvdict.txt', 'a') as f:
-                                f.write(message[3]+":"+message[4]+"\n")
+                            with open('srvdict.txt', 'r') as f:
+                                lines = f.readlines()
+                                a = False
+                                for line in lines:
+                                    if message[3]+":"+message[4] in line:
+                                        a = True
+                                if not a:
+                                    with open('srvdict.txt', 'a') as f:
+                                        f.write(message[3]+":"+message[4]+"\n")
 
 async def main():
     async with websockets.serve(handler, "", 8001):
