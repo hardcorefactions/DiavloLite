@@ -48,15 +48,10 @@ async def ws_addpass(uri, user, passwd, hash, userpass):
 
 # UTILITIES
 
-def printcenter(s):
-    tsize = shutil.get_terminal_size()
-    for line in s.split("\n"):
-        print(line.center(tsize.columns))
-
-def centertext(s):
-    a = shutil.get_terminal_size()
-    for line in s.split("\n"):
-        return line.center(a.columns)
+def printcenter(text):
+    size = shutil.get_terminal_size().columns
+    for line in text.split("\n"):
+        print(' ' * (round((size/2)-len(line)/2)), line)
 
 def bruteforce(hash, salt, uuid:str=None):
     if len(hash) == 86: # SHA256 - AuthMe
