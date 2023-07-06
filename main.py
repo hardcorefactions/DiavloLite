@@ -26,7 +26,7 @@ def d_compile():
         content+=line
   with open('build.py', 'w', encoding='latin-1') as f:
     f.write(content)
-  os.system("nuitka build.py --onefile")
+  os.system("nuitka build.py --onefile --include-package=websockets")
 
 def d_admin(ip, port):
   print("hello xd")
