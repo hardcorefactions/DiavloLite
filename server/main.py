@@ -10,8 +10,8 @@ async def handler(ws):
             break
         message = message2.split()
         cmd = message[0].lower()
-        print(Fore.CYAN+"[LOG] "+Fore.LIGHTBLUE_EX+"Got the following packet")
-        print(Fore.RED+"[PAC] "+Fore.LIGHTRED_EX+message2)
+        print(f"{Fore.LIGHTBLUE_EX}[LOG] {Fore.RESET}Got the following packet -> {Fore.LIGHTRED_EX}{ws.remote_address[0]}")
+        print(f"{Fore.LIGHTBLUE_EX}[PAC] {Fore.RESET}{message2}")
         if cmd == "login":
             if len(message) == 3:
                 with open('users.txt', 'r') as f:
