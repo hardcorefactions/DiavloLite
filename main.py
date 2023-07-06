@@ -1,6 +1,6 @@
 import colorama, shutil, os, time, json
 from colorama import Fore
-colorama.init()
+
 logo = """
   _____  _             _         _      _ _       
  |  __ \(_)           | |       | |    (_) |      
