@@ -1,6 +1,5 @@
 import asyncio, websockets, json, os, colorama
 from colorama import Fore
-colorama.init()
 
 async def handler(ws):
     while True:
