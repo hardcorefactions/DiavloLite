@@ -2,7 +2,6 @@ import asyncio, colorama, shutil, os, time, hashlib, json, psutil
 from colorama import Fore
 from websockets import connect
 from pwinput import pwinput
-colorama.init()
 
 ws = "ws://127.0.0.1:8001"
 logo = """
