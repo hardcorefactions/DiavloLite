@@ -29,7 +29,7 @@ def d_compile():
   os.system("nuitka build.py --onefile --include-package=websockets")
 
 def d_admin(ip, port):
-  print("hello xd")
+  print()
 
 def loadConfig():
   with open('config.json', 'r') as f:
@@ -37,10 +37,10 @@ def loadConfig():
     global config
     config = json.loads(file)
 
-def printcenter(s):
-    a = shutil.get_terminal_size()
-    for line in s.split("\n"):
-        print(line.center(a.columns))
+def printcenter(text):
+    size = shutil.get_terminal_size().columns
+    for line in text.split("\n"):
+        print(' ' * (round((size/2)-len(line)/2)), line)
 
 def main():
   os.system("cls || clear")
