@@ -1,17 +1,13 @@
 import colorama, shutil, os, time, json
 from colorama import Fore
-colorama.init()
-logo = """
 
+logo = """
   _____  _             _         _      _ _       
  |  __ \(_)           | |       | |    (_) |      
  | |  | |_  __ ___   _| | ___   | |     _| |_ ___ 
  | |  | | |/ _` \ \ / / |/ _ \  | |    | | __/ _ \\
  | |__| | | (_| |\ V /| | (_) | | |____| | ||  __/
  |_____/|_|\__,_| \_/ |_|\___/  |______|_|\__\___|
-                                                  
-                                                  
-
 """
 config = ""
 
@@ -26,10 +22,10 @@ def d_compile():
         content+=line
   with open('build.py', 'w', encoding='latin-1') as f:
     f.write(content)
-  os.system("nuitka build.py --onefile")
+  os.system("nuitka build.py --onefile --include-package=websockets")
 
 def d_admin(ip, port):
-  print("hello xd")
+  print()
 
 def loadConfig():
   with open('config.json', 'r') as f:
@@ -37,10 +33,10 @@ def loadConfig():
     global config
     config = json.loads(file)
 
-def printcenter(s):
-    a = shutil.get_terminal_size()
-    for line in s.split("\n"):
-        print(line.center(a.columns))
+def printcenter(text):
+    size = shutil.get_terminal_size().columns
+    for line in text.split("\n"):
+        print(' ' * (round((size/2)-len(line)/2)), line)
 
 def main():
   os.system("cls || clear")
