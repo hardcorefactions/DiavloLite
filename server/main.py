@@ -1,6 +1,8 @@
 import asyncio, websockets, json, os, colorama
 from colorama import Fore
 
+ws_port = 8001
+
 async def handler(ws):
     while True:
         try:
@@ -82,9 +84,9 @@ TIMELEFT 27"""
                                         f.write(message[3]+":"+message[4]+"\n")
 
 async def main():
-    async with websockets.serve(handler, "", 8001):
-        print(Fore.GREEN+"WS sucessfully started.")
-        await asyncio.Future()  # run forever
+    async with websockets.serve(handler, "", ws_port):
+        print(Fore.GREEN+"WS sucessfully started on port: {ws_port}")
+        await asyncio.Future()
 
 if __name__ == "__main__":
     asyncio.run(main())
