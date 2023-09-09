@@ -1,4 +1,4 @@
-import colorama, shutil, os, time, json
+import shutil, os, time, json
 from colorama import Fore
 
 logo = """
