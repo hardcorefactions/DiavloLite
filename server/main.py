@@ -1,4 +1,4 @@
-import asyncio, websockets, json, os, colorama
+import asyncio, websockets, json, os
 from colorama import Fore
 
 ws_port = 8001
