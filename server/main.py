@@ -85,7 +85,7 @@ TIMELEFT 27"""
 
 async def main():
     async with websockets.serve(handler, "", ws_port):
-        print(Fore.GREEN+"WS sucessfully started on port: {ws_port}")
+        print(f"{Fore.GREEN}WS sucessfully started on port: {ws_port}")
         await asyncio.Future()
 
 if __name__ == "__main__":
