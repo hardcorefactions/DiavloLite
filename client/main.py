@@ -1,4 +1,4 @@
-import asyncio, colorama, shutil, os, time, hashlib, json, psutil
+import asyncio, shutil, os, time, hashlib, json, psutil
 from colorama import Fore
 from websockets import connect
 from pwinput import pwinput
